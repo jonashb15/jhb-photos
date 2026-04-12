@@ -341,7 +341,7 @@ section { padding: 80px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 680px) and (orientation: portrait) {
-  #about { padding: 0 0 40px 0; overflow: hidden; }
+  #about { padding: 0; overflow: hidden; }
   .about-inner { display: block; position: relative; }
   .about-img-wrap {
     width: 100%; max-width: 100% !important;
@@ -353,12 +353,13 @@ section { padding: 80px 40px; }
     aspect-ratio: unset !important;
     object-fit: cover;
     object-position: center top;
+    filter: brightness(0.85);
   }
   .about-text {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     padding: 60px 24px 40px;
-    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.35) 100%);
   }
   .about-text .section-title { color: #fff; }
   .about-body p { color: rgba(255,255,255,0.82); line-height: 1.7; font-size: 14px; }
@@ -785,7 +786,7 @@ img {
       <div class="about-text">
         <p class="section-title">About</p>
         <div class="about-body">
-          <p>I started taking photos as a way to document trips I was going on, just to be able to look back and remember where I was and who I was with. Over time it became more than that. It made me pay closer attention to things I would normally walk past: small moments, light, details that are easy to miss if you're not looking for them. Most of the time I don't go out with a clear plan, I just move around and photograph whatever stands out.</p>
+          <p>I started taking photos as a way to document trips I was going on, just to be able to look back and see where I was and who I was with. Over time it became more than that. It made me pay closer attention to things I would normally walk past: small moments, light, details that are easy to miss if you're not looking for them. Most of the time I don't go out with a clear plan, I just move around and photograph whatever stands out.</p>
           <p>When I'm traveling, I hope my photos make people want to go out and see more of the world for themselves. And when I'm shooting closer to home, I like the idea that it can make people notice what's already around them a bit more.</p>
           <p>I don't take photography too seriously. I like keeping it simple and honest. Most of the time I'm just trying to capture a feeling, something calm or familiar. I shoot with Fujifilm and often use film simulations for a softer, more natural look, something closer to how the moment actually felt.</p>
           <p>I mostly shoot street and travel, but I like trying different things too, from cars to sports and even a bit of astro. I enjoy keeping it flexible and learning more as I go.</p>
@@ -1418,6 +1419,19 @@ function showPage(name) {
 window.addEventListener('orientationchange', function() {
   setTimeout(function() { window.location.reload(); }, 100);
 });
+// Swap hero image for mobile portrait (DSCF2500.jpg is native 4:3)
+(function() {
+  const heroImg = document.querySelector('.hero img');
+  const mobilePortrait = window.matchMedia('(max-width: 680px) and (orientation: portrait)');
+  const desktopSrc = heroImg.src;
+  const mobileSrc = 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2500.jpg';
+  function updateHeroSrc(mq) {
+    heroImg.src = mq.matches ? mobileSrc : desktopSrc;
+  }
+  mobilePortrait.addEventListener('change', updateHeroSrc);
+  updateHeroSrc(mobilePortrait);
+})();
+
 window.addEventListener('load', function() {
   const saved = sessionStorage.getItem('jhb_page');
   if (saved === 'gallery' || saved === 'favourites') {
