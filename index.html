@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JHB Photos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white: #FFFFF7;
+  --black: #111111;
+  --gray:  #888888;
+  --light: #F5F5DC;
+  --nav-h: 64px;
+  --font:  'Jost', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; width: 100%; }
+a   { color: inherit; text-decoration: none; }
+
+/* ─── NAV ─────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s, border-color 0.3s;
+}
+.nav.scrolled {
+  background: rgba(255,255,247,0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: #000;
+}
+.nav.scrolled .nav-logo { color: var(--black) !important; }
+.nav.scrolled .nav-links a { color: var(--black) !important; }
+.nav.scrolled .nav-links a:hover { color: var(--gray) !important; }
+.nav.scrolled .nav-instagram a:hover { color: var(--black) !important; opacity: 0.5; }
+.nav.scrolled .nav-toggle span { background: var(--black) !important; }
+
+/* Inner pages — nav always visible */
+.nav.nav-fixed {
+  background: rgba(255,255,247,0.96) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: rgba(0,0,0,0.08) !important;
+}
+.nav.nav-fixed .nav-logo { color: var(--black) !important; }
+.nav.nav-fixed .nav-links a { color: var(--black) !important; }
+.nav.nav-fixed .nav-links a:hover { color: var(--gray) !important; }
+.nav.nav-fixed .nav-instagram a { color: var(--black) !important; }
+.nav.nav-fixed .nav-toggle span { background: var(--black) !important; }
+
+.nav-logo {
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.80);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: rgba(255,255,255,1); }
+.nav-instagram { margin-left: 28px; }
+.nav-instagram a { display: flex; align-items: center; }
+.nav-instagram a svg { width: 20px; height: 20px; display: block; }
+.nav-instagram a:hover { color: rgba(255,255,255,1); opacity: 0.75; }
+
+/* Mobile menu */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: rgba(255,255,255,0.9);
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+@media (max-width: 680px) {
+  .nav { padding: 0 20px; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--white);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding: 16px 0 24px;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
+  .nav-links li { padding: 10px 20px; }
+  .nav-links a { font-size: 12px; }
+}
+
+/* ─── HERO ─────────────────────────────────────── */
+.hero {
+  margin-top: 0;
+  width: 100%;
+  height: 68vh;
+  overflow: hidden;
+  position: relative;
+}
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* ─── SECTIONS: shared ─────────────────────────── */
+section { padding: 80px 40px; }
+.section-title {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 40px;
+}
+
+@media (max-width: 680px) {
+  section { padding: 60px 20px; }
+}
+
+/* ─── PORTFOLIO GRID ───────────────────────────── */
+#portfolio {
+  padding-top: 64px;
+  padding-bottom: 48px;
+}
+#portfolio .section-title { margin-bottom: 8px; }
+
+/* ─── PEEK CAROUSEL ────────────────────────────── */
+.carousel-outer {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 8px 0 8px;
+}
+.carousel-track {
+  display: flex;
+  will-change: transform;
+  transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.carousel-slide {
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(1.08) contrast(1.05);
+  transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
+  pointer-events: none;
+}
+.carousel-slide:hover img { transform: scale(1.04); }
+.carousel-slide-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 48px 14px 22px;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  opacity: 0;
+  transition: opacity 0.28s;
+}
+.carousel-slide:hover .carousel-slide-label { opacity: 1; }
+
+.carousel-arrows {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 4px;
+}
+.carousel-arrow {
+  background: none; border: none; cursor: pointer;
+  font-size: 28px; color: rgba(0,0,0,0.28);
+  padding: 4px 14px; line-height: 1;
+  transition: color 0.2s;
+  user-select: none;
+}
+.carousel-arrow:hover { color: rgba(0,0,0,0.75); }
+.carousel-arrow:disabled { opacity: 0.15; cursor: default; }
+
+.carousel-dots {
+  display: flex; gap: 6px; justify-content: center;
+  margin-top: 16px;
+}
+.carousel-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(0,0,0,0.18); cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.carousel-dot.active { background: var(--black); transform: scale(1.3); }
+
+/* ─── PORTFOLIO LIST PAGE ──────────────────────── */
+#portfolio-list {
+  display: none;
+  padding: 80px 40px;
+}
+#portfolio-list.active { display: block; }
+#portfolio-list .section-title { margin-bottom: 0; }
+
+.portfolio-page-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 32px;
+  margin-bottom: 0;
+}
+
+.project-list { }
+
+.project-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 60px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.project-item:first-child { padding-top: 0; margin-top: 40px; }
+.project-item:last-child  { border-bottom: none; }
+
+.project-img {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--light);
+}
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.project-item:hover .project-img img { transform: scale(1.03); }
+
+.project-info { }
+.project-title {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.project-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 24px;
+}
+.see-more {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 2px;
+  display: inline-block;
+  transition: color 0.2s, border-color 0.2s;
+}
+.see-more:hover { color: var(--gray); border-color: var(--gray); }
+
+@media (max-width: 700px) {
+  .project-item { grid-template-columns: 1fr; gap: 24px; }
+  #portfolio-list { padding: 60px 20px; }
+}
+
+/* ─── ABOUT ────────────────────────────────────── */
+#about {
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background: var(--white);
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .about-inner { grid-template-columns: 1fr; gap: 36px; }
+}
+
+.about-img-wrap {
+  overflow: hidden;
+  background: var(--light);
+  max-width: 80%;
+}
+.about-img-wrap img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.about-text .section-title { margin-bottom: 28px; }
+
+.about-body {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  color: #333;
+}
+.about-body p + p { margin-top: 1.4em; }
+
+/* ─── MASONRY GALLERY ──────────────────────────── */
+#gallery {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  background: var(--white);
+  padding: 80px 40px 80px;
+}
+#gallery .section-title { margin-bottom: 24px; }
+
+@media (max-width: 680px) {
+  #gallery { padding: 60px 20px 60px; }
+}
+
+.masonry {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.masonry-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+@media (max-width: 1000px) {
+  .masonry-col:nth-child(4) { display: none; }
+}
+@media (max-width: 700px) {
+  .masonry { gap: 8px; }
+  .masonry-col:nth-child(3) { display: none; }
+}
+@media (max-width: 420px) {
+  .masonry-col:nth-child(2) { display: none; }
+}
+.masonry-item {
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: var(--light);
+}
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(1.08) contrast(1.05);
+  
+}
+/* ─── CONTACT ──────────────────────────────────── */
+#contact {
+  position: relative;
+  padding: 32px 0 140px;
+  background-color: #172630;
+  background-image: url("https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5283.jpg");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+#contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 20, 26, 0.68);
+  z-index: 0;
+}
+#contact > * {
+  position: relative;
+  z-index: 1;
+}
+.contact-title {
+  font-size: 22px;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 48px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 48px;
+}
+.contact-form {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 48px;
+}
+.contact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 600px) { .contact-row { grid-template-columns: 1fr; } }
+.contact-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.contact-field label { font-size: 13px; font-weight: 400; letter-spacing: 0.06em; color: rgba(255,255,255,0.80); }
+.contact-field label span { font-size: 11px; color: rgba(255,255,255,0.38); margin-left: 8px; letter-spacing: 0.08em; }
+.contact-field input,
+.contact-field textarea {
+  background: rgba(248,247,244,0.92);
+  border: none; border-radius: 0;
+  padding: 14px 16px;
+  font-family: var(--font); font-size: 14px; font-weight: 300; color: var(--black);
+  outline: none; width: 100%;
+  transition: background 0.2s; -webkit-appearance: none;
+}
+.contact-field input:focus,
+.contact-field textarea:focus { background: rgba(255,255,247,1); }
+.contact-field textarea { height: 150px; resize: vertical; }
+.contact-send {
+  margin-top: 8px; padding: 16px 44px;
+  background: var(--black); color: #fff;
+  font-family: var(--font); font-size: 14px; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: none; cursor: pointer; transition: background 0.2s;
+}
+.contact-send:hover { background: #333; }
+
+/* ─── FOOTER ───────────────────────────────────── */
+footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+@media (max-width: 680px) { footer { padding: 24px 20px; } }
+
+.footer-logo {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.footer-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--black); }
+.footer-copy {
+  font-size: 10px;
+  color: #aaa;
+  letter-spacing: 0.08em;
+  width: 100%;
+  text-align: right;
+}
+@media (max-width: 680px) { .footer-copy { text-align: left; } }
+
+/* ─── LIGHTBOX ─────────────────────────────────── */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s;
+}
+.lb.open { opacity: 1; pointer-events: auto; }
+.lb-img-wrap {
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+}
+.lb-img-wrap img {
+  max-width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+  transition: opacity 0.2s;
+}
+.lb-img-wrap img.loading { opacity: 0; }
+.lb-close {
+  position: fixed; top: 20px; right: 28px;
+  font-size: 20px; color: rgba(255,255,255,0.5);
+  cursor: pointer; background: none; border: none;
+  font-family: var(--font); letter-spacing: 0;
+  transition: color 0.2s;
+}
+.lb-close:hover { color: #fff; }
+.lb-prev, .lb-next {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  font-size: 32px; color: rgba(255,255,255,0.4);
+  cursor: pointer; background: none; border: none;
+  font-family: var(--font); padding: 8px;
+  transition: color 0.2s;
+}
+.lb-prev:hover, .lb-next:hover { color: #fff; }
+.lb-prev { left: 16px; }
+.lb-next { right: 16px; }
+.lb-caption {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+  white-space: nowrap;
+}
+
+/* ─── IMAGE PROTECTION ─────────────────────────── */
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+.masonry-item,
+.carousel-slide,
+.fav-img,
+.about-img-wrap,
+.grid-item,
+.hero {
+  position: relative;
+}
+.masonry-item::after,
+.carousel-slide::after,
+.about-img-wrap::after,
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: default;
+}
+/* Re-enable pointer events on the wrappers themselves for hover/click JS */
+.masonry-item,
+.carousel-slide,
+.hero { pointer-events: auto; }
+
+/* ─── UTILITY ──────────────────────────────────── */
+.page-home { display: block; }
+.page-favourites { display: none; }
+.page-gallery { display: none; }
+
+/* ─── FAVOURITES PAGE ──────────────────────────── */
+.fav-page { padding: 120px 56px 100px; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 680px) { .fav-page { padding: 100px 24px 80px; } }
+
+.fav-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 72px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+.fav-item:first-child { padding-top: 0; }
+.fav-item:last-child  { border-bottom: none; }
+.fav-item.reverse     { direction: rtl; }
+.fav-item.reverse > * { direction: ltr; }
+@media (max-width: 760px) {
+  .fav-item, .fav-item.reverse { grid-template-columns: 1fr; gap: 28px; direction: ltr; }
+}
+
+.fav-img {
+  overflow: hidden;
+  background: var(--light);
+}
+.fav-img.portrait {
+  background: transparent;
+}
+.fav-img img {
+  display: block;
+  height: auto;
+  filter: brightness(1.08) contrast(1.05);
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+/* Portrait: narrower so total area matches landscape */
+.fav-img.portrait {
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+.fav-img.portrait img {
+  width: 66.7%;
+}
+/* Landscape: full width */
+.fav-img.landscape img {
+  width: 100%;
+}
+.fav-img:hover img { transform: scale(1.03); }
+
+.fav-text { }
+.fav-number {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: rgba(0,0,0,0.28);
+  margin-bottom: 14px;
+}
+.fav-title {
+  font-family: var(--font);
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  color: var(--black);
+}
+.fav-location {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 22px;
+}
+.fav-note {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #444;
+}
+
+/* ─── GALLERY FILTERS ──────────────────────────── */
+.gallery-filters {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.gallery-filter-btn {
+  padding: 7px 18px;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gray);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.gallery-filter-btn:hover { color: var(--black); border-color: rgba(0,0,0,0.3); }
+.gallery-filter-btn.active { color: var(--black); border-color: var(--black); }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="#" onclick="goHome(null, event)">JHB Photos</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+    <li><a href="#" onclick="goHome('about', event)">About</a></li>
+    <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
+    <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
+    <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
+    <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<div class="page-home" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2500%202.jpg" alt="JHB Photos">
+  </div>
+
+  <!-- PORTFOLIO CAROUSEL -->
+  <section id="portfolio">
+    <p class="section-title">Portfolio</p>
+    <div class="carousel-outer" id="car-outer">
+      <div class="carousel-track" id="car-track"></div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="carousel-arrow" id="car-prev">&#8249;</button>
+      <button class="carousel-arrow" id="car-next">&#8250;</button>
+    </div>
+    <div class="carousel-dots" id="car-dots"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-img-wrap">
+        <img src="https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2805.jpg" alt="About JHB Photos">
+      </div>
+      <div class="about-text">
+        <p class="section-title">About</p>
+        <div class="about-body">
+          <p>I started taking photos as a way to document trips I was going on, just to be able to look back and remember where I was and who I was with. Over time it became more than that. It made me pay closer attention to things I would normally walk past: small moments, light, details that are easy to miss if you're not looking for them. Most of the time I don't go out with a clear plan, I just move around and photograph whatever stands out.</p>
+          <p>When I'm traveling, I hope my photos make people want to go out and see more of the world for themselves. And when I'm shooting closer to home, I like the idea that it can make people notice what's already around them a bit more.</p>
+          <p>I don't take photography too seriously. I like keeping it simple and honest. Most of the time I'm just trying to capture a feeling, something calm or familiar. I shoot with Fujifilm and often use film simulations for a softer, more natural look, something closer to how the moment actually felt.</p>
+          <p>I mostly shoot street and travel, but I like trying different things too, from cars to sports and even a bit of astro. I enjoy keeping it flexible and learning more as I go.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="contact-title">Contact</h2>
+    <form class="contact-form" onsubmit="handleContact(event)">
+      <div class="contact-row">
+        <div class="contact-field">
+          <label>First Name <span>(required)</span></label>
+          <input type="text" required placeholder="">
+        </div>
+        <div class="contact-field">
+          <label>Last Name <span>(required)</span></label>
+          <input type="text" required placeholder="">
+        </div>
+      </div>
+      <div class="contact-field">
+        <label>Email <span>(required)</span></label>
+        <input type="email" required placeholder="">
+      </div>
+      <div class="contact-field">
+        <label>Subject <span>(required)</span></label>
+        <input type="text" required placeholder="">
+      </div>
+      <div class="contact-field">
+        <label>Message <span>(required)</span></label>
+        <textarea required></textarea>
+      </div>
+      <button type="submit" class="contact-send">Send</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">JHB Photos</span>
+    <ul class="footer-links">
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 JHB Photos</span>
+  </footer>
+
+</div><!-- /page-home -->
+
+<!-- ═══════════════ GALLERY PAGE ═══════════════ -->
+<div class="page-gallery" id="page-gallery" style="min-height:100vh;">
+
+  <div style="padding: 120px 40px 80px;">
+    <p class="section-title" style="margin-bottom:24px;">Gallery</p>
+    <div class="gallery-filters" id="gallery-filters"></div>
+    <div class="masonry" id="masonry-full"></div>
+  </div>
+
+  <footer style="border-top:1px solid rgba(0,0,0,0.08); padding:28px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <span class="footer-logo" style="font-size:12px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;">JHB Photos</span>
+    <ul class="footer-links" style="display:flex;gap:28px;list-style:none;flex-wrap:wrap;">
+      <li><a href="#" onclick="goHome(null, event)" style="font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);">Home</a></li>
+      <li><a href="#" onclick="showPage('favourites')" style="font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);">Portfolio</a></li>
+      <li><a href="#" onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50)" style="font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);">Contact</a></li>
+    </ul>
+  </footer>
+
+</div><!-- /page-gallery -->
+
+<!-- ═══════════════ FAVOURITES PAGE ═══════════════ -->
+<div class="page-favourites" id="page-favourites">
+  <div class="fav-page">
+    <p class="section-title" style="margin-bottom:56px;">Favourites</p>
+    <div id="fav-list"></div>
+  </div>
+  <footer style="border-top:1px solid rgba(0,0,0,0.08);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <span class="footer-logo">JHB Photos</span>
+    <ul class="footer-links">
+      <li><a href="#" onclick="goHome(null, event)">Home</a></li>
+      <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+      <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50)">Contact</a></li>
+    </ul>
+  </footer>
+</div><!-- /page-favourites -->
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" id="lb-close">✕</button>
+  <button class="lb-prev"  id="lb-prev">‹</button>
+  <button class="lb-next"  id="lb-next">›</button>
+  <div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+  <div class="lb-caption"  id="lb-caption"></div>
+</div>
+
+<script>
+const ROLODEX = [
+  { title: 'Matsumoto Castle, Matsumoto', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2939.jpg' },
+  { title: 'Surfer, Bali', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4073.jpg' },
+  { title: 'Chinatown, Yokohama', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2375.jpg' },
+  { title: 'Rooftops, Lisbon', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7168.jpg' },
+  { title: 'Rowing, Avis', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8437.JPG' },
+  { title: 'Tram, Lisbon', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7843.JPG' },
+  { title: 'Coca-Cola Truck, Kyoto', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3376.jpg' },
+  { title: 'Autumn Biker, Oslo', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5538.jpg' },
+  { title: 'Stone Torii Gates, Kyoto', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3678.jpg' },
+  { title: 'Cliffs, Madeira', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8186.JPG' },
+  { title: 'Chef & Vending Machine, Tokyo', src: 'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0666.jpg' }
+];
+
+/* ── DATA ───────────────────────────────────────── */
+const PROJECTS = [
+  { id:'landscape',  title:'Landscape',      cat:'Photography',  desc:'Wide Nordic landscapes — fjords, forests, and the quality of northern light across every season.',  seed:'land01', w:1000, h:1000, src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2805.jpg' },
+  { id:'street',     title:'Street',         cat:'Photography',  desc:'Scenes from the city that stop me mid-step. Ordinary moments that seem to hold their breath for a second.',  seed:'str02',  w:1000, h:1000 },
+  { id:'portrait',   title:'Portrait',       cat:'Photography',  desc:'People photographed in available light, with the least amount of interference I can manage.',  seed:'prt03',  w:1000, h:1000 },
+  { id:'travel',     title:'Travel',         cat:'Photography',  desc:'Images from elsewhere — places that do something unfamiliar to the light.',  seed:'trav04', w:1000, h:1000 },
+  { id:'abstract',   title:'Abstract',       cat:'Photography',  desc:'Details, textures, and the moments where context dissolves and only the image remains.',  seed:'abs05',  w:1000, h:1000 },
+  { id:'editorial',  title:'Editorial',      cat:'Photography',  desc:'Work made in collaboration with others — for publications, brands, and campaigns.',  seed:'edit06', w:1000, h:1000 },
+];
+
+const GALLERY = [
+  { seed:'g01', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8741.JPG' },
+  { seed:'g02', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8738.JPG' },
+  { seed:'g03', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8727.JPG' },
+  { seed:'g04', title:'Rowing, Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8437.JPG' },
+  { seed:'g05', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8431.JPG' },
+  { seed:'g06', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8417.JPG' },
+  { seed:'g07', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8412.JPG' },
+  { seed:'g08', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8403.JPG' },
+  { seed:'g09', title:'Portugal', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8396.JPG' },
+  { seed:'g10', title:'Madeira view', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/IMG_4603.JPG' },
+  { seed:'g11', title:'Portugal coast', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/IMG_4673.JPG' },
+  { seed:'g12', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8190.JPG' },
+  { seed:'g13', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8186.JPG' },
+  { seed:'g14', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8184.JPG' },
+  { seed:'g15', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8162.JPG' },
+  { seed:'g16', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8152.JPG' },
+  { seed:'g17', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8148.JPG' },
+  { seed:'g18', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8141.JPG' },
+  { seed:'g19', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8137.JPG' },
+  { seed:'g20', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8119.JPG' },
+  { seed:'g21', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF8040.JPG' },
+  { seed:'g22', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7998.JPG' },
+  { seed:'g23', title:'Lisbon tram', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7843.JPG' },
+  { seed:'g24', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7784.JPG' },
+  { seed:'g25', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7774.JPG' },
+  { seed:'g26', title:'Madeira', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7733.JPG' },
+  { seed:'g27', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7579.JPG' },
+  { seed:'g28', title:'Lisbon street', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/IMG_4476.JPG' },
+  { seed:'g29', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7525.jpg' },
+  { seed:'g30', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7520.jpg' },
+  { seed:'g31', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7506.jpg' },
+  { seed:'g32', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7458.jpg' },
+  { seed:'g33', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7438.jpg' },
+  { seed:'g34', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7405.jpg' },
+  { seed:'g35', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7322.jpg' },
+  { seed:'g36', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7282.jpg' },
+  { seed:'g37', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7217.jpg' },
+  { seed:'g38', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7173.jpg' },
+  { seed:'g39', title:'Lisbon rooftops', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7168.jpg' },
+  { seed:'g40', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7058.jpg' },
+  { seed:'g41', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7027.jpg' },
+  { seed:'g42', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7025.jpg' },
+  { seed:'g43', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7022.jpg' },
+  { seed:'g44', title:'Lisbon scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF7011.jpg' },
+  { seed:'g45', title:'Portugal scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF6942.jpg' },
+  { seed:'g46', title:'Portugal scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF6885.jpg' },
+  { seed:'g47', title:'Portugal scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF6807.jpg' },
+  { seed:'g48', title:'Portugal scene', country:'Portugal', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF6804.jpg' },
+  { seed:'g49', title:'Bergen', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5623.jpg' },
+  { seed:'g50', title:'Oslo autumn', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5538.jpg' },
+  { seed:'g51', title:'Bergen', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5304.jpg' },
+  { seed:'g52', title:'Bergen', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5303.jpg' },
+  { seed:'g53', title:'Bergen', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5283.jpg' },
+  { seed:'g54', title:'Bergen crossroads', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5265.jpg' },
+  { seed:'g55', title:'Bryggen, Bergen', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5206.jpg' },
+  { seed:'g56', title:'Bergen', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF5190.jpg' },
+  { seed:'g57', title:'Norway landscape', country:'Denmark', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4960.jpg' },
+  { seed:'g58', title:'Norway landscape', country:'Denmark', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4886.jpg' },
+  { seed:'g59', title:'Norway landscape', country:'Sweden', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4824.jpg' },
+  { seed:'g60', title:'Norway landscape', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4374.jpg' },
+  { seed:'g61', title:'Madeira coast', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4209.jpg' },
+  { seed:'g62', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4080.jpg' },
+  { seed:'g63', title:'Surfer, Madeira', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4073.jpg' },
+  { seed:'g64', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4066.jpg' },
+  { seed:'g65', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4055.jpg' },
+  { seed:'g66', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF4024.jpg' },
+  { seed:'g67', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3990.jpg' },
+  { seed:'g68', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3946.jpg' },
+  { seed:'g69', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3932.jpg' },
+  { seed:'g70', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3911.jpg' },
+  { seed:'g71', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3898.jpg' },
+  { seed:'g72', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3880.jpg' },
+  { seed:'g73', title:'Madeira coast', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3877.jpg' },
+  { seed:'g74', title:'Photo', country:'Bali', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3849.jpg' },
+  { seed:'g75', title:'Madeira coast', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3848.jpg' },
+  { seed:'g76', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3845.jpg' },
+  { seed:'g77', title:'Madeira coast', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3838.jpg' },
+  { seed:'g78', title:'Madeira coast', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3826.jpg' },
+  { seed:'g79', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3796.jpg' },
+  { seed:'g80', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3793.jpg' },
+  { seed:'g81', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3791.jpg' },
+  { seed:'g82', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3774.jpg' },
+  { seed:'g83', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3772.jpg' },
+  { seed:'g84', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3750.jpg' },
+  { seed:'g85', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3742.jpg' },
+  { seed:'g86', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3741.jpg' },
+  { seed:'g87', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3730.jpg' },
+  { seed:'g88', title:'Fushimi Inari', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3712.jpg' },
+  { seed:'g89', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3710.jpg' },
+  { seed:'g90', title:'Inari spirits', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3678.jpg' },
+  { seed:'g91', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3666.jpg' },
+  { seed:'g92', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3664.jpg' },
+  { seed:'g93', title:'Fushimi Inari area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3627.jpg' },
+  { seed:'g94', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3620.jpg' },
+  { seed:'g95', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3594.jpg' },
+  { seed:'g96', title:'Ginza area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3591.jpg' },
+  { seed:'g97', title:'Bamboo Forest', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3544.jpg' },
+  { seed:'g98', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3540.jpg' },
+  { seed:'g99', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3535.jpg' },
+  { seed:'g100', title:'Ginza area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3530.jpg' },
+  { seed:'g101', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3501.jpg' },
+  { seed:'g102', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3473.jpg' },
+  { seed:'g103', title:'Ginza area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3453.jpg' },
+  { seed:'g104', title:'Japan street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3381.jpg' },
+  { seed:'g105', title:'Ginza street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3376.jpg' },
+  { seed:'g106', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3374.jpg' },
+  { seed:'g107', title:'Japan street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3373.jpg' },
+  { seed:'g108', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3222.jpg' },
+  { seed:'g109', title:'Japan street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3188.jpg' },
+  { seed:'g110', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3171.jpg' },
+  { seed:'g111', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3141.jpg' },
+  { seed:'g112', title:'Japan street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3121.jpg' },
+  { seed:'g113', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3118.jpg' },
+  { seed:'g114', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF3010.jpg' },
+  { seed:'g115', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2986.jpg' },
+  { seed:'g116', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2981.jpg' },
+  { seed:'g117', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2967.jpg' },
+  { seed:'g118', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2953.jpg' },
+  { seed:'g119', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2952.jpg' },
+  { seed:'g120', title:'Matsumoto Castle', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2939.jpg' },
+  { seed:'g121', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2933.jpg' },
+  { seed:'g122', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2929.jpg' },
+  { seed:'g123', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2895.jpg' },
+  { seed:'g124', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2882.jpg' },
+  { seed:'g125', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2874.jpg' },
+  { seed:'g126', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2861.jpg' },
+  { seed:'g127', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2859.jpg' },
+  { seed:'g128', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2850.jpg' },
+  { seed:'g129', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2848.jpg' },
+  { seed:'g130', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2842.jpg' },
+  { seed:'g131', title:'Matsumoto area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2819.jpg' },
+  { seed:'g132', title:'Kawaguchiko area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2788.jpg' },
+  { seed:'g133', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2786.jpg' },
+  { seed:'g134', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2785.jpg' },
+  { seed:'g135', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2725.jpg' },
+  { seed:'g136', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2722.jpg' },
+  { seed:'g137', title:'Kawaguchiko area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2703.jpg' },
+  { seed:'g138', title:'Kawaguchiko area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2685.jpg' },
+  { seed:'g139', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2668.jpg' },
+  { seed:'g140', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2609.jpg' },
+  { seed:'g141', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2580.jpg' },
+  { seed:'g142', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2545.jpg' },
+  { seed:'g143', title:'Kawaguchiko area', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2541.jpg' },
+  { seed:'g144', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2539.jpg' },
+  { seed:'g145', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2531.jpg' },
+  { seed:'g146', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2525.jpg' },
+  { seed:'g147', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2519.jpg' },
+  { seed:'g148', title:'Kawaguchiko bridge', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2500.jpg' },
+  { seed:'g149', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2470.jpg' },
+  { seed:'g150', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2440.jpg' },
+  { seed:'g151', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2437.jpg' },
+  { seed:'g152', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2430.jpg' },
+  { seed:'g153', title:'Lawson & Fuji', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2429.jpg' },
+  { seed:'g154', title:'Tokyo scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2411.jpg' },
+  { seed:'g155', title:'Tokyo scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2376.jpg' },
+  { seed:'g156', title:'Yokohama Chinatown', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2375.jpg' },
+  { seed:'g157', title:'Tokyo scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2305.jpg' },
+  { seed:'g158', title:'Tokyo scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2300.jpg' },
+  { seed:'g159', title:'Tokyo scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2207.jpg' },
+  { seed:'g160', title:'Red torii path', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2182.jpg' },
+  { seed:'g161', title:'Sake barrels', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2155.jpg' },
+  { seed:'g162', title:'Shrine visitors', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2147.jpg' },
+  { seed:'g163', title:'Torii gate', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2137.jpg' },
+  { seed:'g164', title:'Tokyo scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2130.jpg' },
+  { seed:'g165', title:'Tokyo metro', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2095.jpg' },
+  { seed:'g166', title:'Yamanote line packed', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2089.jpg' },
+  { seed:'g167', title:'Asakusa rain street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2075.jpg' },
+  { seed:'g168', title:'Sushi conveyor belt', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2074.jpg' },
+  { seed:'g169', title:'Senso&#8209;ji at dusk', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2063.jpg' },
+  { seed:'g170', title:'Stairs to tower', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2012.jpg' },
+  { seed:'g171', title:'Rainy umbrellas night', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2010.jpg' },
+  { seed:'g172', title:'Traffic cones blur', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1971.jpg' },
+  { seed:'g173', title:'Tokyo Tower at night', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1927.jpg' },
+  { seed:'g174', title:'Ginza scramble top', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1903.jpg' },
+  { seed:'g175', title:'Football jerseys bar', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1897.jpg' },
+  { seed:'g176', title:'Ginza Ferrari', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1874.jpg' },
+  { seed:'g177', title:'Park bamboo path', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1837.jpg' },
+  { seed:'g178', title:'GT-R duo Shibuya', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1741.jpg' },
+  { seed:'g179', title:'Go-karts overhead', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1649.jpg' },
+  { seed:'g180', title:'Tokyo side street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1539.jpg' },
+  { seed:'g181', title:'Underground bar', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1419.jpg' },
+  { seed:'g182', title:'KFC Asakusa night', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1404.jpg' },
+  { seed:'g183', title:'Dojo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1374.jpg' },
+  { seed:'g184', title:'Senso&#8209;ji at night', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1355.jpg' },
+  { seed:'g185', title:'Taxi door open', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1311.jpg' },
+  { seed:'g186', title:'Small shrine gate', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1258.jpg' },
+  { seed:'g187', title:'Senso&#8209;ji by day', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1221.jpg' },
+  { seed:'g188', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF1027.jpg' },
+  { seed:'g189', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0993.jpg' },
+  { seed:'g190', title:'Torii detail', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0991.jpg' },
+  { seed:'g191', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0988.jpg' },
+  { seed:'g192', title:'Umbrella in park', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0946.jpg' },
+  { seed:'g193', title:'Parking vending', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0855.jpg' },
+  { seed:'g194', title:'Shadow street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0837.jpg' },
+  { seed:'g195', title:'Shinjuku red taxi', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0725.jpg' },
+  { seed:'g196', title:'Shinjuku overpass', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0720.jpg' },
+  { seed:'g197', title:'Shinjuku neon crossing', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0706.jpg' },
+  { seed:'g198', title:'Vending machine man', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0666.jpg' },
+  { seed:'g199', title:'Ramen shop window', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0641.jpg' },
+  { seed:'g200', title:'Kabukicho taxi', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0588.jpg' },
+  { seed:'g201', title:'Don Quijote Shinjuku', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0584.jpg' },
+  { seed:'g202', title:'Shinjuku Zara street', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0489.jpg' },
+  { seed:'g203', title:'Shibuya cyclist', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0457.jpg' },
+  { seed:'g204', title:'Yodobashi camera', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0452.jpg' },
+  { seed:'g205', title:'Tokyo bar scene', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0298.jpg' },
+  { seed:'g206', title:'Izakaya shelf', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0284.jpg' },
+  { seed:'g207', title:'Red Evo, Shibuya', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0207.jpg' },
+  { seed:'g208', title:'Skyline R34', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0186.jpg' },
+  { seed:'g209', title:'Shibuya crossing II', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0181.jpg' },
+  { seed:'g210', title:'Shibuya crossing', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0177.jpg' },
+  { seed:'g211', title:'Passing train', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0173.jpg' },
+  { seed:'g212', title:'Shin-Okubo at night', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0168.jpg' },
+  { seed:'g213', title:'Matsumoto Kiyoshi', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0163.jpg' },
+  { seed:'g214', title:'Photo', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0161.jpg' },
+  { seed:'g215', title:'Tokyo night', country:'Japan', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0145.jpg' },
+  { seed:'g216', title:'Abandoned boats', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0123.jpg' },
+  { seed:'g217', title:'Seagull', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0098.jpg' },
+  { seed:'g218', title:'Oslofjord sunset', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0061.png' },
+  { seed:'g219', title:'Oslofjord dusk', country:'Norway', src:'https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF0050.jpg' }
+];;
+
+/* ── BUILD PEEK CAROUSEL (infinite loop) ─────────── */
+(function() {
+  const outer   = document.getElementById('car-outer');
+  const track   = document.getElementById('car-track');
+  const dotsEl  = document.getElementById('car-dots');
+  const btnPrev = document.getElementById('car-prev');
+  const btnNext = document.getElementById('car-next');
+  const total   = ROLODEX.length;
+  const PEEK    = 0.10;  // fraction of outer shown on each side
+  const GAP     = 12;    // px between slides
+  const CLONE   = 3;     // clones on each end for seamless wrap
+
+  let current   = CLONE; // real index offset by CLONE
+  let animating = false;
+
+  function getSlideW() {
+    return (outer.offsetWidth * (1 - 2 * PEEK) - GAP) / 2;
+  }
+
+  // Build: CLONE tail clones + real slides + CLONE head clones
+  const allItems = [
+    ...ROLODEX.slice(-CLONE),
+    ...ROLODEX,
+    ...ROLODEX.slice(0, CLONE)
+  ];
+
+  const slides = allItems.map((item, i) => {
+    const realIdx = (i - CLONE + total) % total;
+    const div = document.createElement('div');
+    div.className = 'carousel-slide';
+    div.innerHTML = '<img src="' + item.src + '" alt="' + item.title + '" loading="lazy">' +
+                    '<div class="carousel-slide-label">' + item.title + '</div>';
+    div.addEventListener('click', () => {
+      if (i < current) {
+        goTo(current - 1);
+      } else if (i > current + 1) {
+        goTo(current + 1);
+      } else {
+        // Active center slide — open lightbox scoped to ROLODEX
+        lbSource = ROLODEX;
+        lbIdx = realIdx;
+        updateLb();
+        lbEl.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    track.appendChild(div);
+    return div;
+  });
+
+  // Dots (one per real slide)
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i + CLONE));
+    dotsEl.appendChild(d);
+  }
+
+  function updateDots() {
+    const realIdx = (current - CLONE + total) % total;
+    dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === realIdx);
+    });
+  }
+
+  function layout() {
+    const sw = getSlideW();
+    const sh = Math.round(sw * 0.68);
+    outer.style.height = (sh + 16) + 'px';
+    slides.forEach(s => {
+      s.style.width       = sw + 'px';
+      s.style.height      = sh + 'px';
+      s.style.marginRight = GAP + 'px';
+    });
+    applyTransform(false);
+  }
+
+  function applyTransform(animate) {
+    const sw   = getSlideW();
+    const peek = outer.offsetWidth * PEEK;
+    const offset = peek - current * (sw + GAP);
+    track.style.transition = animate ? 'transform 0.52s cubic-bezier(0.4,0,0.2,1)' : 'none';
+    track.style.transform  = 'translateX(' + offset + 'px)';
+  }
+
+  function goTo(idx, animate) {
+    if (animating) return;
+    animating = true;
+    current = idx;
+    applyTransform(animate !== false);
+    updateDots();
+
+    setTimeout(() => {
+      // Silent jump if we've landed on a clone
+      if (current <= CLONE - 1) {
+        current = current + total;
+        applyTransform(false);
+      } else if (current >= CLONE + total) {
+        current = current - total;
+        applyTransform(false);
+      }
+      animating = false;
+    }, 560);
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (document.getElementById('lb').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  let tx = 0;
+  outer.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  outer.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  });
+
+  window.addEventListener('resize', layout);
+  requestAnimationFrame(() => { layout(); goTo(CLONE, false); });
+})();
+
+
+
+/* home masonry removed — gallery lives on Gallery page */
+
+/* ── PAGE SWITCHING ─────────────────────────────── */
+/* ── FAVOURITES DATA ────────────────────────────── */
+const FAVOURITES = [
+  { title:'Feira da Ladra', location:'Alfama, Lisbon, Portugal',
+    note:'It was our first morning in Lisbon. I was eager to get up early and explore, and convinced the group to start at Feira da Ladra flea market. We were only there for a few days, and since the market only runs twice a week, it felt like good timing. It was also one of those warm, sunny January days, which made it even better. We had been walking around for a while and I was looking for something that stood out. Then I came across this stall. The old Mercedes behind it is what first caught my attention, but I ended up noticing the Swiss Army knives he was selling. I had been wanting one since I lost my last, so I was pretty happy to find one in good condition and bought it from him. I like this photo because of how much is going on, the car, the stall, and the man I bought the knife from, all in one frame.',
+    galleryTitle:'Portugal scene' },
+  { title:'Sunset Surfer', location:'Uluwatu, Bali, Indonesia',
+    note:'During our time in Bali, we knew we had to check out Uluwatu, so we called our favourite taxi driver, Wayan, to take us around for the day. He showed us a mix of places, from Garuda Wisnu Kencana Park to different beaches along the coast. It made everything easier, and honestly just a better experience having someone local show us around. By sunset, we ended up at one of the cliffside bars overlooking the ocean. We found a quieter spot, got some drinks, and stayed there for a while. The view was incredible. Down on the beach below, people were swimming, and a few surfers were trying to make the most of the waves. At one point I noticed a surfer standing on the rocks, waiting for the right moment to head out. There was something about the way he stood there that just looked cool, I remember thinking I wish it had been me. Instead, I took the photo. It ended up being one of my favourite spontaneous shots.',
+    galleryTitle:'Surfer, Madeira' },
+  { title:'Stone Torii Gates', location:'Fushimi Inari Taisha, Kyoto, Japan',
+    note:'During our last day in Kyoto, we planned a day trip to Fushimi Inari to see the famous orange torii gates. When we arrived, it was clear it was going to be busy, there were tourists everywhere. After our experience in Arashiyama, we decided to try something different and look for a quieter way up. I found a trail leading up the side of the mountain, away from the main paths, and we followed it. It turned out to be a long walk, but a really good one. We passed through smaller shrines, temples, and even more bamboo along the way. About halfway up, we came across this spot, completely empty. It felt a bit hidden, tucked into the forest, with moss growing over the stone torii gates while the sunlight still found its way through. It wasn\'t what we originally came for, but it ended up being one of my favourite photos, and one that has a story behind it.',
+    galleryTitle:'Inari spirits' },
+  { title:'Bamboo Grove', location:'Adashino Nenbutsuji Temple, Kyoto, Japan',
+    note:'During our time in Kyoto, we knew we had to see the bamboo groves in Arashiyama. We decided to rent bikes to explore the area, partly to get around more easily, but also to escape the heat. After cycling in Kawaguchiko, we already knew it was the best way to move around. We had originally planned to visit the main Arashiyama Bamboo Forest, but it looked really crowded, so we reconsidered. I found a smaller spot just up the road, and we rode there instead. The neighborhoods along the way stood out to me, everything felt so well put together and surrounded by greenery. We ended up at Adashino Nenbutsuji Temple, which had a mix of buildings, statues, and small grave sites, along with this bamboo grove. It felt calm and quiet, and there was no one else around, which made it easy to take this photo. The grove itself wasn\'t very large, but having it to ourselves made the experience feel much more special.',
+    galleryTitle:'Bamboo Forest' },
+  { title:'Matsumoto Castle', location:'Matsumoto, Japan',
+    note:'We left Fujikawaguchiko in the afternoon and headed to Matsumoto. I had really wanted to come here, mainly for the castle and nearby Kamikochi, and was glad I got the others on board since this part of the trip felt a bit different from the rest. In Matsumoto, the only thing I really cared about was seeing this castle. I\'d wanted to visit for years, I always thought it was the coolest looking of the original twelve in Japan. We dropped our bags at the hotel and even though it was getting late, I wanted to go straight there. I was definitely the most excited out of all of us. As we entered the park, I caught a glimpse of it and was already impressed. Then we walked a bit further in, and this was the view. I was honestly surprised by how well it was kept, and with the red bridge in front, it just looked incredible. This is still my favourite photo I\'ve taken, partly because of how it looks, but also because I had been looking forward to this moment for so long.',
+    galleryTitle:'Matsumoto Castle' },
+  { title:'Biking around Fuji', location:'Fujikawaguchiko, Japan',
+    note:'After many long days in Tokyo, we headed to Fujikawaguchiko. The air felt cooler and lighter, a nice break from the heat and humidity of the city. We stayed in a small hostel with traditional tatami rooms and roll-out beds, and from the balcony we had a clear view of Mount Fuji. Later that day we borrowed bikes and went out to explore. Riding around in that kind of weather, with no crowds and nowhere specific to be, everything just felt calm. We cycled through town and along Lake Kawaguchi, and stopped by the water to eat some snacks and watch the sun go down. On the way back, just after sunset, we took the shortcut across Kawaguchiko Ohashi bridge, where I stopped to take this photo. Seeing Fuji this clearly without clouds is rare, so I knew I had to capture it. That ride, and this view as part of it, is easily my favourite moment from the trip.',
+    galleryTitle:'Kawaguchiko bridge' },
+  { title:'Chinatown', location:'Yokohama, Japan',
+    note:'It was later in the day, and we had finished exploring Kamakura, and decided to stop by Yokohama\'s Chinatown before heading back to Tokyo. After 1859, it became a hub for Chinese merchants trading silk and tea, and because of strict regulations they were confined to a small area, which is how Chinatown ended up forming there. As soon as we walked in I was struck by it: bright yellow lights and signs everywhere, a bit chaotic but still somehow cozy. It felt really different from Tokyo despite being so close, like stepping into a completely different place for a while. I liked how you could experience a different culture so clearly without even leaving Japan. This photo takes me straight back to that night.',
+    galleryTitle:'Yokohama Chinatown' },
+  { title:'Shrine Visitors', location:'Tsurugaoka Hachimangu, Kamakura, Japan',
+    note:'This was our first day out of Tokyo, a day trip to Kamakura. We walked the path from San-no Torii towards the main temple, and there was a lot to take in along the way. At some point I noticed a family in kimonos, different colours, gathered around some props on the path. I tried to be subtle about getting the shot, but the mother spotted me and looked up with a big smile, like she was happy to have her photo taken. I captured it and nodded back. The scene made it a good photo, her smile made it special.',
+    galleryTitle:'Shrine visitors' },
+  { title:'Conveyor Belt Sushi', location:'Asakusa, Tokyo, Japan',
+    note:'About a week into the trip to Tokyo we had a free day and ended up wandering around Asakusa near Senso&#8209;ji without much of a plan. We came across a conveyor belt sushi place and went in on impulse, sat down and started picking plates. The fish was incredible, easily the best I\'d had, with combinations I hadn\'t tried before. The man behind the counter was older and clearly knew what he was doing, and it showed in the food. I didn\'t eat much in terms of quantity, but it didn\'t really matter. A few pieces felt like enough, almost like the quality itself was what filled me up.',
+    galleryTitle:'Sushi conveyor belt' },
+  { title:'Shinjuku Chef', location:'Omoide Yokocho, Shinjuku, Tokyo, Japan',
+    note:'This was the first full day of a trip I had been planning for years. We came out of the subway in Shinjuku and I remember being genuinely overwhelmed. It was just a lot to take in at once, buildings everywhere, crowds moving in every direction, light and noise all around. A few streets in, we found Omoide Yokocho, a narrow alley packed with tiny restaurants and bars. We wandered through it for a while, it felt completely different from the wide, open streets just outside. As we were leaving, I noticed a chef on a smoke break, leaning against the wall next to a vending machine. That moment stood out to me. One of my favourites from the trip.',
+    galleryTitle:'Vending machine man' },
+];
+
+let favouritesBuilt = false;
+function buildFavouritesPage() {
+  if (favouritesBuilt) return;
+  favouritesBuilt = true;
+  const list = document.getElementById('fav-list');
+  FAVOURITES.forEach((fav, i) => {
+    const galleryItem = GALLERY.find(g => g.title === fav.galleryTitle);
+    const src = galleryItem ? galleryItem.src : ('https://picsum.photos/seed/fav' + i + '/900/600');
+    const galleryIdx = GALLERY.findIndex(g => g.title === fav.galleryTitle);
+    const item = document.createElement('div');
+    item.className = 'fav-item' + (i % 2 === 1 ? ' reverse' : '');
+
+    const imgDiv = document.createElement('div');
+    imgDiv.className = 'fav-img';
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = fav.title;
+    img.loading = 'lazy';
+    img.addEventListener('load', () => {
+      imgDiv.classList.add(img.naturalHeight > img.naturalWidth ? 'portrait' : 'landscape');
+    });
+    imgDiv.appendChild(img);
+
+    const textDiv = document.createElement('div');
+    textDiv.className = 'fav-text';
+    textDiv.innerHTML =
+      '<div class="fav-title">' + fav.title + '</div>' +
+      '<div class="fav-location">' + fav.location + '</div>' +
+      '<div class="fav-note">' + fav.note + '</div>';
+
+    item.appendChild(imgDiv);
+    item.appendChild(textDiv);
+
+    if (galleryIdx >= 0) {
+      imgDiv.style.cursor = 'pointer';
+      imgDiv.addEventListener('click', () => {
+        // Build a source array from just the favourites photos in order
+        const favSrcs = FAVOURITES.map(f => GALLERY.find(g => g.title === f.galleryTitle)).filter(Boolean);
+        const favIdx = favSrcs.indexOf(GALLERY[galleryIdx]);
+        lbSource = favSrcs;
+        lbIdx = favIdx >= 0 ? favIdx : 0;
+        updateLb();
+        lbEl.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+    list.appendChild(item);
+  });
+}
+
+let galleryFilterActive = 'All';
+function buildGalleryFilters() {
+  const filtersEl = document.getElementById('gallery-filters');
+  if (!filtersEl || filtersEl.children.length) return;
+  const countries = ['All', ...new Set(GALLERY.filter(g => g.country).map(g => g.country))];
+  countries.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'gallery-filter-btn' + (c === 'All' ? ' active' : '');
+    btn.textContent = c;
+    btn.addEventListener('click', () => {
+      galleryFilterActive = c;
+      filtersEl.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.toggle('active', b.textContent === c));
+      document.querySelectorAll('#masonry-full .masonry-item').forEach((item) => {
+        const g = GALLERY[parseInt(item.dataset.galleryIdx)];
+        item.style.display = (c === 'All' || !g || !g.country || g.country === c) ? '' : 'none';
+      });
+      // Rebalance columns after filtering
+      rebalanceMasonryCols();
+    });
+    filtersEl.appendChild(btn);
+  });
+}
+
+function goHome(section, e) {
+  if (e) e.preventDefault();
+  closeMobileNav();
+  sessionStorage.removeItem('jhb_page');
+  // Show home page directly without triggering scroll-to-top
+  document.getElementById('page-home').style.display       = 'block';
+  document.getElementById('page-favourites').style.display = 'none';
+  document.getElementById('page-gallery').style.display    = 'none';
+  document.getElementById('nav').classList.remove('nav-fixed');
+  if (section) {
+    const el   = document.getElementById(section);
+    const navH = document.getElementById('nav').offsetHeight;
+    const top  = el.getBoundingClientRect().top + window.scrollY - navH;
+    window.scrollTo({ top, behavior: 'smooth' });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showPage(name) {
+  document.getElementById('page-home').style.display       = name === 'home'       ? 'block' : 'none';
+  document.getElementById('page-favourites').style.display = name === 'favourites' ? 'block' : 'none';
+  document.getElementById('page-gallery').style.display    = name === 'gallery'    ? 'block' : 'none';
+  if (name === 'gallery')    { buildGalleryPage(); buildGalleryFilters(); }
+  if (name === 'favourites') { buildFavouritesPage(); }
+  // On inner pages force nav to be always visible (light bg, dark text)
+  // On home page restore transparent-over-hero behaviour
+  const nav = document.getElementById('nav');
+  if (name === 'home') {
+    nav.classList.remove('nav-fixed');
+    sessionStorage.removeItem('jhb_page');
+  } else {
+    nav.classList.add('nav-fixed');
+    sessionStorage.setItem('jhb_page', name);
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// On load, restore last visited page
+window.addEventListener('load', function() {
+  const saved = sessionStorage.getItem('jhb_page');
+  if (saved === 'gallery' || saved === 'favourites') {
+    showPage(saved);
+  }
+});
+
+/* ── NAV scroll border ──────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 20);
+}, { passive: true });
+
+/* ── Mobile nav ─────────────────────────────────── */
+document.getElementById('nav-toggle').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+function closeMobileNav() {
+  document.getElementById('nav-links').classList.remove('open');
+}
+
+/* ── LIGHTBOX (gallery strip only) ─────────────── */
+const lbEl      = document.getElementById('lb');
+const lbImg     = document.getElementById('lb-img');
+const lbCaption = document.getElementById('lb-caption');
+let lbIdx = 0;
+let lbSource = null; // null = use GALLERY, otherwise custom array
+
+function openLb(i) {
+  lbIdx = i;
+  updateLb();
+  lbEl.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  lbEl.classList.remove('open');
+  document.body.style.overflow = '';
+  lbSource = null;
+}
+function updateLb() {
+  const arr = lbSource || GALLERY;
+  const g = arr[lbIdx];
+  lbImg.classList.add('loading');
+  lbImg.onload = () => lbImg.classList.remove('loading');
+  lbImg.src = g.src || `https://picsum.photos/seed/${g.seed}/1200/1600`;
+  lbCaption.textContent = `${arr.length - lbIdx} / ${arr.length}`;
+}
+function prevLb(e) { e && e.stopPropagation(); const arr = lbSource || GALLERY; lbIdx = (lbIdx - 1 + arr.length) % arr.length; updateLb(); }
+function nextLb(e) { e && e.stopPropagation(); const arr = lbSource || GALLERY; lbIdx = (lbIdx + 1) % arr.length; updateLb(); }
+
+document.getElementById('lb-close').onclick = closeLb;
+document.getElementById('lb-prev').onclick  = prevLb;
+document.getElementById('lb-next').onclick  = nextLb;
+lbEl.addEventListener('click', e => { if (e.target === lbEl) closeLb(); });
+
+document.addEventListener('keydown', e => {
+  if (!lbEl.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLb();
+  if (e.key === 'ArrowLeft')  prevLb();
+  if (e.key === 'ArrowRight') nextLb();
+});
+
+let galleryPageBuilt = false;
+function buildGalleryPage() {
+  if (galleryPageBuilt) return;
+  galleryPageBuilt = true;
+  const el = document.getElementById('masonry-full');
+  const NUM_COLS = window.innerWidth <= 420 ? 1 : window.innerWidth <= 700 ? 2 : window.innerWidth <= 1000 ? 3 : 4;
+
+  const cols = Array.from({ length: NUM_COLS }, () => {
+    const col = document.createElement('div');
+    col.className = 'masonry-col';
+    el.appendChild(col);
+    return col;
+  });
+
+  // Strict round-robin: photo i always goes to column (i % NUM_COLS)
+  // This guarantees photos 1,2,3 are side by side, 4,5,6 below them, etc.
+  // Columns may be slightly uneven in height — this is the accepted trade-off
+  // for keeping related/consecutive photos visually adjacent.
+  GALLERY.forEach((g, i) => {
+    const div = document.createElement('div');
+    div.className = 'masonry-item';
+    const src = g.src || ('https://picsum.photos/seed/' + g.seed + '/800/1060');
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = g.title;
+    img.loading = 'lazy';
+    div.appendChild(img);
+    div.dataset.galleryIdx = i;
+    div.addEventListener('click', () => openLb(i));
+    cols[i % NUM_COLS].appendChild(div);
+  });
+}
+
+function rebalanceMasonryCols() {
+  // After filter: restore all items to their original column (galleryIdx % NUM_COLS)
+  // This keeps hidden items in the DOM so subsequent filters still work
+  const el = document.getElementById('masonry-full');
+  const cols = Array.from(el.querySelectorAll('.masonry-col'));
+  if (!cols.length) return;
+  const items = Array.from(el.querySelectorAll('.masonry-item'));
+  items.forEach(item => {
+    const idx = parseInt(item.dataset.galleryIdx);
+    cols[idx % cols.length].appendChild(item);
+  });
+}
+
+
+
+/* ── IMAGE PROTECTION ───────────────────────────── */
+document.addEventListener('contextmenu', e => {
+  if (e.target.tagName === 'IMG' || e.target.closest('.masonry-item, .carousel-slide, .hero, .about-img-wrap, .grid-item')) {
+    e.preventDefault();
+  }
+});
+document.addEventListener('dragstart', e => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
+});
+document.addEventListener('keydown', e => {
+  // Block Ctrl/Cmd+S (save page), Ctrl/Cmd+U (view source), Ctrl/Cmd+Shift+I (devtools)
+  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) {
+    e.preventDefault();
+  }
+});
+
+function handleContact(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.contact-send');
+  btn.textContent = 'Sent ✓';
+  btn.style.background = '#2a5';
+  setTimeout(() => { btn.textContent = 'Send'; btn.style.background = ''; e.target.reset(); }, 3000);
+}
+let tsX = 0;
+lbEl.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive:true });
+lbEl.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tsX;
+  if (Math.abs(dx) > 40) dx < 0 ? nextLb() : prevLb();
+});
+</script>
+</body>
+</html>
