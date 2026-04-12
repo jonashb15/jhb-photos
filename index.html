@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JHB Photos</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzExMSIvPjx0ZXh0IHg9IjUwIiB5PSI2OCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSBOZXVlLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzgiIGZvbnQtd2VpZ2h0PSIzMDAiIGZpbGw9IiNGRkZGRjciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSIyIj5KSEI8L3RleHQ+PC9zdmc+">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGRlZnM+PGNsaXBQYXRoIGlkPSJjIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIvPjwvY2xpcFBhdGg+PC9kZWZzPgogIDxpbWFnZSBjbGlwLXBhdGg9InVybCgjYykiIGhyZWY9Imh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9qb25hc2hiMTUvamhiLXBob3Rvcy9tYWluL0RTQ0YyODA1LmpwZyIKICAgIHg9Ii0xMi41IiB5PSItMTIuNSIgd2lkdGg9IjEyNSIgaGVpZ2h0PSIxMjUiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIHNsaWNlIi8+Cjwvc3ZnPg==">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
@@ -358,32 +358,31 @@ section { padding: 80px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 900px) and (orientation: landscape) {
-  #about { padding: 0; overflow: visible; }
+  #about { padding: 0; overflow: hidden; }
   .about-inner { display: block; position: relative; }
   .about-img-wrap {
     width: 100%; max-width: 100% !important;
     aspect-ratio: unset !important;
-    height: auto;
-    min-height: 100svh;
+    height: 100svh;
   }
   .about-img-wrap img {
-    width: 100%;
-    height: auto;
-    min-height: 100svh;
+    width: 100%; height: 100%;
     aspect-ratio: unset !important;
     object-fit: cover;
     object-position: center top;
     filter: brightness(0.85);
   }
   .about-text {
-    position: relative;
-    padding: 40px 32px 48px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 100%);
-    margin-top: -4px;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 40px 32px 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+    overflow-y: auto;
+    max-height: 70svh;
   }
   .about-text .section-title { color: #fff; }
-  .about-body p { color: rgba(255,255,255,0.82); line-height: 1.7; font-size: 14px; }
-  .about-body p + p { margin-top: 1em; }
+  .about-body p { color: rgba(255,255,255,0.85); line-height: 1.65; font-size: 13px; }
+  .about-body p + p { margin-top: 0.8em; }
 }
 
 @media (max-width: 680px) and (orientation: portrait) {
