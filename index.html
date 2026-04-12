@@ -358,25 +358,28 @@ section { padding: 80px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 900px) and (orientation: landscape) {
-  #about { padding: 0; overflow: hidden; }
+  #about { padding: 0; overflow: visible; }
   .about-inner { display: block; position: relative; }
   .about-img-wrap {
     width: 100%; max-width: 100% !important;
     aspect-ratio: unset !important;
-    height: 100svh;
+    height: auto;
+    min-height: 100svh;
   }
   .about-img-wrap img {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: auto;
+    min-height: 100svh;
     aspect-ratio: unset !important;
     object-fit: cover;
     object-position: center top;
     filter: brightness(0.85);
   }
   .about-text {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 60px 24px 40px;
-    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.35) 100%);
+    position: relative;
+    padding: 40px 32px 48px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.88) 100%);
+    margin-top: -4px;
   }
   .about-text .section-title { color: #fff; }
   .about-body p { color: rgba(255,255,255,0.82); line-height: 1.7; font-size: 14px; }
