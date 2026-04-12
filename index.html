@@ -107,6 +107,11 @@ a   { color: inherit; text-decoration: none; }
   gap: 5px;
   cursor: pointer;
   padding: 4px;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 .nav-toggle span {
   display: block;
@@ -137,8 +142,9 @@ a   { color: inherit; text-decoration: none; }
   .nav-links li { padding: 14px 20px; text-align: center; }
   .nav-links a { font-size: 13px; letter-spacing: 0.18em; color: var(--black) !important; }
   .nav-links a:hover { color: var(--gray) !important; }
-  /* Hide instagram icon in nav-links on mobile (shown in footer) */
-  .nav-links .nav-instagram { display: none; }
+  /* Show instagram in mobile nav overlay */
+  .nav-links .nav-instagram { display: flex; justify-content: center; padding: 10px 20px; }
+  .nav-links .nav-instagram a { color: var(--black) !important; }
   /* Show close X when open */
   .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--black) !important; }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
@@ -351,6 +357,32 @@ section { padding: 80px 40px; }
 @media (max-width: 760px) {
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
 }
+@media (max-width: 900px) and (orientation: landscape) {
+  #about { padding: 0; overflow: hidden; }
+  .about-inner { display: block; position: relative; }
+  .about-img-wrap {
+    width: 100%; max-width: 100% !important;
+    aspect-ratio: unset !important;
+    height: 100svh;
+  }
+  .about-img-wrap img {
+    width: 100%; height: 100%;
+    aspect-ratio: unset !important;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.85);
+  }
+  .about-text {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 60px 24px 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.35) 100%);
+  }
+  .about-text .section-title { color: #fff; }
+  .about-body p { color: rgba(255,255,255,0.82); line-height: 1.7; font-size: 14px; }
+  .about-body p + p { margin-top: 1em; }
+}
+
 @media (max-width: 680px) and (orientation: portrait) {
   #about { padding: 0; overflow: hidden; }
   .about-inner { display: block; position: relative; }
@@ -767,7 +799,7 @@ img {
     <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
     <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
     <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
-    <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></a></li>
+    <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
 </nav>
 
@@ -849,7 +881,7 @@ img {
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
     <span class="footer-copy">© 2026 JHB Photos</span>
   </footer>
 
