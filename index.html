@@ -152,8 +152,8 @@ a   { color: inherit; text-decoration: none; }
   object-position: center center;
 }
 @media (max-width: 680px) and (orientation: portrait) {
-  .hero { height: auto; overflow: visible; }
-  .hero img { height: auto; object-fit: unset; }
+  .hero { height: auto; overflow: hidden; aspect-ratio: 4/3; }
+  .hero img { width: 100%; height: 100%; object-fit: cover; object-position: 65% center; }
 }
 
 /* ─── SECTIONS: shared ─────────────────────────── */
@@ -341,10 +341,10 @@ section { padding: 80px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 680px) and (orientation: portrait) {
-  #about { padding: 0; overflow: hidden; }
+  #about { padding: 0 0 40px 0; overflow: hidden; }
   .about-inner { display: block; position: relative; }
   .about-img-wrap {
-    width: 100%; max-width: 100%;
+    width: 100%; max-width: 100% !important;
     aspect-ratio: unset !important;
     height: 100svh;
   }
@@ -1150,7 +1150,8 @@ const GALLERY = [
   }
   function getSlideW() {
     if (isMobilePortrait()) {
-      return outer.offsetWidth * (1 - 2 * PEEK); // 1 slide on portrait mobile
+      const mobilePeek = 0.18;
+      return outer.offsetWidth * (1 - 2 * mobilePeek); // 1 slide, 18% peek each side
     }
     return (outer.offsetWidth * (1 - 2 * PEEK) - GAP) / 2;
   }
@@ -1216,7 +1217,7 @@ const GALLERY = [
 
   function applyTransform(animate) {
     const sw   = getSlideW();
-    const peek = outer.offsetWidth * PEEK;
+    const peek = outer.offsetWidth * (isMobilePortrait() ? 0.18 : PEEK);
     const offset = peek - current * (sw + GAP);
     track.style.transition = animate ? 'transform 0.52s cubic-bezier(0.4,0,0.2,1)' : 'none';
     track.style.transform  = 'translateX(' + offset + 'px)';
