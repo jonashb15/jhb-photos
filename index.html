@@ -144,7 +144,8 @@ a   { color: inherit; text-decoration: none; }
   .nav-links a:hover { color: var(--gray) !important; }
   /* Show instagram in mobile nav overlay */
   .nav-links .nav-instagram { display: flex; justify-content: center; align-items: center; padding: 14px 20px; }
-  .nav-links .nav-instagram a { color: var(--black) !important; }
+  .nav-links .nav-instagram a { color: var(--black) !important; display: flex; align-items: center; justify-content: center; }
+  .nav-links .nav-instagram svg { display: block; }
   /* Show close X when open */
   .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--black) !important; }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
@@ -189,7 +190,7 @@ section { padding: 80px 40px; }
   section { padding: 60px 20px; }
   #about { padding-top: 50px; padding-bottom: 50px; }
   #contact { padding: 24px 0 80px; }
-  #portfolio { padding-top: 24px; padding-bottom: 16px; }
+  #portfolio { padding-top: 20px !important; padding-bottom: 14px !important; }
 }
 
 /* ─── PORTFOLIO GRID ───────────────────────────── */
@@ -794,15 +795,15 @@ img {
   <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
-    <li><a href="#" onclick="goHome('about', event)">About</a></li>
-    <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
-    <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
-    <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
-    <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
-  </ul>
 </nav>
+<ul class="nav-links" id="nav-links">
+  <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+  <li><a href="#" onclick="goHome('about', event)">About</a></li>
+  <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
+  <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
+  <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
+  <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
+</ul>
 
 <!-- ═══════════════ HOME PAGE ═══════════════ -->
 <div class="page-home" id="page-home">
