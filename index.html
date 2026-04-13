@@ -143,7 +143,7 @@ a   { color: inherit; text-decoration: none; }
   .nav-links a { font-size: 13px; letter-spacing: 0.18em; color: var(--black) !important; }
   .nav-links a:hover { color: var(--gray) !important; }
   /* Show instagram in mobile nav overlay */
-  .nav-links .nav-instagram { display: flex; justify-content: center; align-items: center; padding: 14px 20px; }
+  .nav-links .nav-instagram { display: flex; justify-content: center; align-items: center; padding: 14px 20px; width: 100%; }
   .nav-links .nav-instagram a { color: var(--black) !important; display: flex; align-items: center; justify-content: center; }
   .nav-links .nav-instagram svg { display: block; }
   /* Show close X when open */
@@ -459,12 +459,9 @@ section { padding: 80px 40px; }
 @media (max-width: 1000px) {
   .masonry-col:nth-child(4) { display: none; }
 }
-@media (max-width: 700px) {
-  .masonry { gap: 8px; }
+@media (max-width: 680px) {
+  .masonry { gap: 6px; }
   .masonry-col:nth-child(3) { display: none; }
-}
-@media (max-width: 420px) {
-  .masonry-col:nth-child(2) { display: none; }
 }
 .masonry-item {
   width: 100%;
@@ -1552,7 +1549,7 @@ function buildGalleryPage() {
   if (galleryPageBuilt) return;
   galleryPageBuilt = true;
   const el = document.getElementById('masonry-full');
-  const NUM_COLS = window.innerWidth <= 420 ? 1 : window.innerWidth <= 700 ? 2 : window.innerWidth <= 1000 ? 3 : 4;
+  const NUM_COLS = window.innerWidth <= 680 ? 2 : window.innerWidth <= 1000 ? 3 : 4;
 
   const cols = Array.from({ length: NUM_COLS }, () => {
     const col = document.createElement('div');
