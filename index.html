@@ -95,9 +95,9 @@ a   { color: inherit; text-decoration: none; }
   transition: color 0.2s;
 }
 .nav-links a:hover { color: rgba(255,255,255,1); }
-.nav-instagram { margin-left: 28px; }
+.nav-instagram { margin-left: 28px; display: flex; align-items: center; }
 .nav-instagram a { display: flex; align-items: center; }
-.nav-instagram a svg { width: 20px; height: 20px; display: block; }
+.nav-instagram a svg { width: 14px; height: 14px; display: block; }
 .nav-instagram a:hover { color: rgba(255,255,255,1); opacity: 0.75; }
 
 /* Mobile menu */
@@ -145,13 +145,14 @@ a   { color: inherit; text-decoration: none; }
   /* Show instagram in mobile nav overlay */
   .nav-links .nav-instagram { display: flex; justify-content: center; align-items: center; padding: 14px 20px; width: 100%; }
   .nav-links .nav-instagram a { color: var(--black) !important; display: flex; align-items: center; justify-content: center; }
-  .nav-links .nav-instagram svg { display: block; }
+  .nav-links .nav-instagram svg { display: block; width: 18px; height: 18px; }
   /* Show close X when open */
   .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--black) !important; }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--black) !important; }
   /* Keep nav above overlay so toggle stays clickable */
   .nav { z-index: 1001 !important; }
+  .nav.menu-open { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(255,255,247,0.98) !important; }
   .nav-toggle { z-index: 1002; position: relative; }
   .nav-logo { z-index: 1002; position: relative; }
 }
@@ -459,8 +460,9 @@ section { padding: 80px 40px; }
 @media (max-width: 1000px) {
   .masonry-col:nth-child(4) { display: none; }
 }
-@media (max-width: 680px) {
+@media (max-width: 900px) {
   .masonry { gap: 6px; }
+  .masonry-col { gap: 6px; }
   .masonry-col:nth-child(3) { display: none; }
 }
 .masonry-item {
@@ -792,15 +794,15 @@ img {
   <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+    <li><a href="#" onclick="goHome('about', event)">About</a></li>
+    <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
+    <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
+    <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
+    <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
+  </ul>
 </nav>
-<ul class="nav-links" id="nav-links">
-  <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
-  <li><a href="#" onclick="goHome('about', event)">About</a></li>
-  <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
-  <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
-  <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
-  <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
-</ul>
 
 <!-- ═══════════════ HOME PAGE ═══════════════ -->
 <div class="page-home" id="page-home">
@@ -1495,11 +1497,15 @@ window.addEventListener('scroll', () => {
 document.getElementById('nav-toggle').addEventListener('click', () => {
   document.getElementById('nav-links').classList.toggle('open');
   document.getElementById('nav-toggle').classList.toggle('open');
-  document.body.style.overflow = document.getElementById('nav-links').classList.contains('open') ? 'hidden' : '';
+  const isOpen = document.getElementById('nav-links').classList.contains('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+  // Remove backdrop-filter when menu open to prevent stacking context trap
+  document.getElementById('nav').classList.toggle('menu-open', isOpen);
 });
 function closeMobileNav() {
   document.getElementById('nav-links').classList.remove('open');
   document.getElementById('nav-toggle').classList.remove('open');
+  document.getElementById('nav').classList.remove('menu-open');
   document.body.style.overflow = '';
 }
 
@@ -1549,7 +1555,7 @@ function buildGalleryPage() {
   if (galleryPageBuilt) return;
   galleryPageBuilt = true;
   const el = document.getElementById('masonry-full');
-  const NUM_COLS = window.innerWidth <= 680 ? 2 : window.innerWidth <= 1000 ? 3 : 4;
+  const NUM_COLS = window.innerWidth <= 900 ? 2 : window.innerWidth <= 1000 ? 3 : 4;
 
   const cols = Array.from({ length: NUM_COLS }, () => {
     const col = document.createElement('div');
