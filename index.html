@@ -97,7 +97,7 @@ a   { color: inherit; text-decoration: none; }
 .nav-links a:hover { color: rgba(255,255,255,1); }
 .nav-instagram { margin-left: 28px; display: flex; align-items: center; }
 .nav-instagram a { display: flex; align-items: center; }
-.nav-instagram a svg { width: 14px; height: 14px; display: block; }
+.nav-instagram a svg { width: 16px; height: 16px; display: block; }
 .nav-instagram a:hover { color: rgba(255,255,255,1); opacity: 0.75; }
 
 /* Mobile menu */
@@ -139,12 +139,12 @@ a   { color: inherit; text-decoration: none; }
     transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
   }
   .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  .nav-links li { padding: 14px 20px; text-align: center; }
+  .nav-links li { padding: 14px 20px; text-align: center; width: 100%; }
   .nav-links a { font-size: 13px; letter-spacing: 0.18em; color: var(--black) !important; }
   .nav-links a:hover { color: var(--gray) !important; }
   /* Show instagram in mobile nav overlay */
   .nav-links .nav-instagram { display: flex; justify-content: center; align-items: center; padding: 14px 20px; width: 100%; }
-  .nav-links .nav-instagram a { color: var(--black) !important; display: flex; align-items: center; justify-content: center; }
+  .nav-links .nav-instagram a { color: var(--black) !important; display: flex; align-items: center; justify-content: center; width: 100%; }
   .nav-links .nav-instagram svg { display: block; width: 18px; height: 18px; }
   /* Show close X when open */
   .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--black) !important; }
@@ -191,6 +191,7 @@ section { padding: 80px 40px; }
   section { padding: 60px 20px; }
   #about { padding-top: 50px; padding-bottom: 50px; }
   #contact { padding: 24px 0 80px; }
+  .contact-title { padding: 0 20px; margin-left: 0; margin-right: 0; max-width: 100%; }
   #portfolio { padding-top: 20px !important; padding-bottom: 14px !important; }
 }
 
@@ -378,8 +379,8 @@ section { padding: 80px 40px; }
   .about-text {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 60px 32px 40px;
-    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 55%, transparent 100%);
+    padding: 100px 32px 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 60%, transparent 100%);
   }
   .about-text .section-title { color: #fff; }
   .about-body p { color: rgba(255,255,255,0.85); line-height: 1.65; font-size: 13px; }
@@ -530,7 +531,7 @@ section { padding: 80px 40px; }
 .contact-field label span { font-size: 11px; color: rgba(255,255,255,0.38); margin-left: 8px; letter-spacing: 0.08em; }
 .contact-field input,
 .contact-field textarea {
-  background: rgba(248,247,244,0.92);
+  background: var(--white);
   border: none; border-radius: 0;
   padding: 14px 16px;
   font-family: var(--font); font-size: 14px; font-weight: 300; color: var(--black);
@@ -538,7 +539,7 @@ section { padding: 80px 40px; }
   transition: background 0.2s; -webkit-appearance: none;
 }
 .contact-field input:focus,
-.contact-field textarea:focus { background: rgba(255,255,247,1); }
+.contact-field textarea:focus { background: var(--white); }
 .contact-field textarea { height: 150px; resize: vertical; }
 .contact-send {
   margin-top: 8px; padding: 16px 44px;
@@ -846,7 +847,7 @@ img {
   <!-- CONTACT -->
   <section id="contact">
     <h2 class="contact-title">Contact</h2>
-    <form class="contact-form" onsubmit="handleContact(event)">
+    <form class="contact-form" action="https://formspree.io/f/xaqaqeol" method="POST" onsubmit="handleContact(event)">
       <div class="contact-row">
         <div class="contact-field">
           <label>First Name <span>(required)</span></label>
@@ -1616,10 +1617,30 @@ document.addEventListener('keydown', e => {
 
 function handleContact(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.contact-send');
-  btn.textContent = 'Sent ✓';
-  btn.style.background = '#2a5';
-  setTimeout(() => { btn.textContent = 'Send'; btn.style.background = ''; e.target.reset(); }, 3000);
+  const form = e.target;
+  const btn = form.querySelector('.contact-send');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  fetch('https://formspree.io/f/xaqaqeol', {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(res => {
+    if (res.ok) {
+      btn.textContent = 'Sent ✓';
+      btn.style.background = '#2a5';
+      form.reset();
+      setTimeout(() => { btn.textContent = 'Send'; btn.style.background = ''; btn.disabled = false; }, 4000);
+    } else {
+      btn.textContent = 'Error — try again';
+      btn.style.background = '#c44';
+      setTimeout(() => { btn.textContent = 'Send'; btn.style.background = ''; btn.disabled = false; }, 4000);
+    }
+  }).catch(() => {
+    btn.textContent = 'Error — try again';
+    btn.style.background = '#c44';
+    setTimeout(() => { btn.textContent = 'Send'; btn.style.background = ''; btn.disabled = false; }, 4000);
+  });
 }
 let tsX = 0;
 lbEl.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive:true });
