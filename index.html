@@ -557,14 +557,14 @@ section { padding: 80px 40px; }
 
 footer {
   border-top: 1px solid rgba(0,0,0,0.08);
-  padding: 28px 40px;
+  padding: 14px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
 }
-@media (max-width: 680px) { footer { padding: 24px 20px; } }
+@media (max-width: 680px) { footer { padding: 14px 20px; } }
 
 .footer-logo {
   font-size: 12px;
@@ -676,6 +676,36 @@ img {
 .carousel-slide,
 .hero { pointer-events: auto; }
 
+
+/* ─── SHOP PAGE ─────────────────────────────────── */
+.shop-section {
+  position: relative;
+  min-height: calc(100svh - var(--nav-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  overflow: hidden;
+}
+.shop-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://raw.githubusercontent.com/jonashb15/jhb-photos/main/DSCF2939.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.45);
+  z-index: 0;
+}
+.shop-coming-soon {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(32px, 6vw, 72px);
+  font-weight: 200;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+}
 /* ─── UTILITY ──────────────────────────────────── */
 .page-home { display: block; }
 .page-favourites { display: none; }
@@ -800,6 +830,7 @@ img {
     <li><a href="#" onclick="goHome('about', event)">About</a></li>
     <li><a href="#" onclick="showPage('gallery'); closeMobileNav()">Gallery</a></li>
     <li><a href="#" onclick="showPage('favourites'); closeMobileNav()">Favourites</a></li>
+    <li><a href="#" onclick="showPage('shop'); closeMobileNav()">Shop</a></li>
     <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     <li class="nav-instagram"><a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" onclick="closeMobileNav()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
@@ -878,10 +909,12 @@ img {
   <footer>
     <span class="footer-logo">JHB Photos</span>
     <ul class="footer-links">
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+      <li><a href="#" onclick="goHome('about', event)">About</a></li>
       <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" onclick="showPage('favourites')">Favourites</a></li>
+      <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+      <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
     <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
     <span class="footer-copy">© 2026 JHB Photos</span>
@@ -898,13 +931,18 @@ img {
     <div class="masonry" id="masonry-full"></div>
   </div>
 
-  <footer style="border-top:1px solid rgba(0,0,0,0.08); padding:28px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-    <span class="footer-logo" style="font-size:12px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;">JHB Photos</span>
-    <ul class="footer-links" style="display:flex;gap:28px;list-style:none;flex-wrap:wrap;">
-      <li><a href="#" onclick="goHome(null, event)" style="font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);">Home</a></li>
-      <li><a href="#" onclick="showPage('favourites')" style="font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);">Portfolio</a></li>
-      <li><a href="#" onclick="showPage('home'); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50)" style="font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);">Contact</a></li>
+  <footer>
+    <span class="footer-logo">JHB Photos</span>
+    <ul class="footer-links">
+      <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+      <li><a href="#" onclick="goHome('about', event)">About</a></li>
+      <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+      <li><a href="#" onclick="showPage('favourites')">Favourites</a></li>
+      <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+      <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
+    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+    <span class="footer-copy">© 2026 JHB Photos</span>
   </footer>
 
 </div><!-- /page-gallery -->
@@ -915,15 +953,43 @@ img {
     <p class="section-title" style="margin-bottom:56px;">Favourites</p>
     <div id="fav-list"></div>
   </div>
-  <footer style="border-top:1px solid rgba(0,0,0,0.08);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+  <footer>
     <span class="footer-logo">JHB Photos</span>
     <ul class="footer-links">
-      <li><a href="#" onclick="goHome(null, event)">Home</a></li>
+      <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+      <li><a href="#" onclick="goHome('about', event)">About</a></li>
       <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
-      <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50)">Contact</a></li>
+      <li><a href="#" onclick="showPage('favourites')">Favourites</a></li>
+      <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+      <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
+    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+    <span class="footer-copy">© 2026 JHB Photos</span>
   </footer>
-</div><!-- /page-favourites -->
+</div>
+
+<div id="page-shop" style="display:none;">
+
+  <section class="shop-section">
+    <div class="shop-bg"></div>
+    <p class="shop-coming-soon">Coming Soon</p>
+  </section>
+
+  <footer>
+    <span class="footer-logo">JHB Photos</span>
+    <ul class="footer-links">
+      <li><a href="#" onclick="goHome('portfolio', event)">Portfolio</a></li>
+      <li><a href="#" onclick="goHome('about', event)">About</a></li>
+      <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+      <li><a href="#" onclick="showPage('favourites')">Favourites</a></li>
+      <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+      <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
+    </ul>
+    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+    <span class="footer-copy">© 2026 JHB Photos</span>
+  </footer>
+
+</div><!-- /page-shop --><!-- /page-favourites -->
 
 <!-- LIGHTBOX -->
 <div class="lb" id="lb">
@@ -1435,6 +1501,7 @@ function goHome(section, e) {
   document.getElementById('page-home').style.display       = 'block';
   document.getElementById('page-favourites').style.display = 'none';
   document.getElementById('page-gallery').style.display    = 'none';
+  document.getElementById('page-shop').style.display       = 'none';
   document.getElementById('nav').classList.remove('nav-fixed');
   if (section) {
     const el   = document.getElementById(section);
@@ -1450,6 +1517,7 @@ function showPage(name) {
   document.getElementById('page-home').style.display       = name === 'home'       ? 'block' : 'none';
   document.getElementById('page-favourites').style.display = name === 'favourites' ? 'block' : 'none';
   document.getElementById('page-gallery').style.display    = name === 'gallery'    ? 'block' : 'none';
+  document.getElementById('page-shop').style.display       = name === 'shop'       ? 'block' : 'none';
   if (name === 'gallery')    { buildGalleryPage(); buildGalleryFilters(); }
   if (name === 'favourites') { buildFavouritesPage(); }
   // On inner pages force nav to be always visible (light bg, dark text)
