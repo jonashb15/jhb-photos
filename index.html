@@ -303,7 +303,7 @@ section { padding: 80px 40px; }
 .project-img {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--light);
+  background: var(--white);
 }
 .project-img img {
   width: 100%;
@@ -362,6 +362,14 @@ section { padding: 80px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 900px) and (orientation: landscape) {
+  .nav { padding: 0 16px; }
+  .nav-logo { font-size: 14px; letter-spacing: 0.12em; white-space: nowrap; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 9px; letter-spacing: 0.10em; }
+  .nav-instagram { margin-left: 12px; }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
   #about { padding: 0; overflow: visible; }
   .about-inner { display: block; position: relative; }
   .about-img-wrap {
@@ -415,7 +423,7 @@ section { padding: 80px 40px; }
 
 .about-img-wrap {
   overflow: hidden;
-  background: var(--light);
+  background: var(--white);
   max-width: 80%;
 }
 .about-img-wrap img {
@@ -471,7 +479,7 @@ section { padding: 80px 40px; }
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  background: var(--light);
+  background: var(--white);
 }
 .masonry-item img {
   width: 100%;
@@ -563,6 +571,30 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
+}
+@media (max-width: 680px) and (orientation: portrait) {
+  footer {
+    padding: 20px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px 16px;
+    width: 100%;
+  }
+  .footer-links li:nth-child(4) { grid-column: 1; }
+  .footer-links li:nth-child(5) { grid-column: 2; }
+  .footer-links li:nth-child(6) { grid-column: 3; }
+  .footer-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 4px;
+  }
 }
 @media (max-width: 680px) { footer { padding: 14px 20px; } }
 
@@ -733,7 +765,7 @@ img {
 
 .fav-img {
   overflow: hidden;
-  background: var(--light);
+  background: var(--white);
 }
 .fav-img.portrait {
   background: transparent;
@@ -916,8 +948,13 @@ img {
       <li><a href="#" onclick="showPage('shop')">Shop</a></li>
       <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
-    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
-    <span class="footer-copy">© 2026 JHB Photos</span>
+    <div class="footer-bottom-row">
+      <span class="footer-logo" style="display:none" aria-hidden="true"></span>
+      <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
+        <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+        <span class="footer-copy">© 2026 JHB Photos</span>
+      </div>
+    </div>
   </footer>
 
 </div><!-- /page-home -->
@@ -941,8 +978,13 @@ img {
       <li><a href="#" onclick="showPage('shop')">Shop</a></li>
       <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
-    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
-    <span class="footer-copy">© 2026 JHB Photos</span>
+    <div class="footer-bottom-row">
+      <span class="footer-logo" style="display:none" aria-hidden="true"></span>
+      <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
+        <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+        <span class="footer-copy">© 2026 JHB Photos</span>
+      </div>
+    </div>
   </footer>
 
 </div><!-- /page-gallery -->
@@ -963,8 +1005,13 @@ img {
       <li><a href="#" onclick="showPage('shop')">Shop</a></li>
       <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
-    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
-    <span class="footer-copy">© 2026 JHB Photos</span>
+    <div class="footer-bottom-row">
+      <span class="footer-logo" style="display:none" aria-hidden="true"></span>
+      <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
+        <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+        <span class="footer-copy">© 2026 JHB Photos</span>
+      </div>
+    </div>
   </footer>
 </div>
 
@@ -985,8 +1032,13 @@ img {
       <li><a href="#" onclick="showPage('shop')">Shop</a></li>
       <li><a href="#" onclick="goHome('contact', event)">Contact</a></li>
     </ul>
-    <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
-    <span class="footer-copy">© 2026 JHB Photos</span>
+    <div class="footer-bottom-row">
+      <span class="footer-logo" style="display:none" aria-hidden="true"></span>
+      <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
+        <a href="https://www.instagram.com/jhb.foto" target="_blank" rel="noopener" aria-label="Instagram" class="footer-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a>
+        <span class="footer-copy">© 2026 JHB Photos</span>
+      </div>
+    </div>
   </footer>
 
 </div><!-- /page-shop --><!-- /page-favourites -->
