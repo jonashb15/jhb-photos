@@ -920,24 +920,24 @@ img {
       <div class="contact-row">
         <div class="contact-field">
           <label>First Name <span>(required)</span></label>
-          <input type="text" required placeholder="">
+          <input type="text" name="first_name" required placeholder="">
         </div>
         <div class="contact-field">
           <label>Last Name <span>(required)</span></label>
-          <input type="text" required placeholder="">
+          <input type="text" name="last_name" required placeholder="">
         </div>
       </div>
       <div class="contact-field">
         <label>Email <span>(required)</span></label>
-        <input type="email" required placeholder="">
+        <input type="email" name="email" required placeholder="">
       </div>
       <div class="contact-field">
         <label>Subject <span>(required)</span></label>
-        <input type="text" required placeholder="">
+        <input type="text" name="subject" required placeholder="">
       </div>
       <div class="contact-field">
         <label>Message <span>(required)</span></label>
-        <textarea required></textarea>
+        <textarea name="message" required></textarea>
       </div>
       <button type="submit" class="contact-send">Send</button>
     </form>
@@ -1425,36 +1425,39 @@ const GALLERY = [
 /* ── PAGE SWITCHING ─────────────────────────────── */
 /* ── FAVOURITES DATA ────────────────────────────── */
 const FAVOURITES = [
+  { title:'Sunrise Hike', location:'Pico Ruivo, Madeira, Portugal',
+    note:'During our time in Madeira, we knew we wanted to climb a mountain, so we set our sights on the highest one. We had been told to hike it for sunrise, which meant waking up at 3 and driving for about an hour to the start. We arrived at the parking lot around 5, tired but ready to go. The hike up was done completely in the dark, just using flashlights, and at times it felt a bit strange not being able to see anything around us. We reached the top of Pico Ruivo before anyone else, at around 6. It wasn\'t a long hike, but it definitely felt like it on that little sleep. We ended up waiting there for over an hour for the sun to come up, just to make sure we didn\'t miss it. When it finally did, it was exactly what we had hoped for. The light slowly hit the peaks, and we could see across the island above the clouds. This photo captures a small part of that moment. It was a great experience, and one of the most memorable from the trip.',
+    file:'DSCF8040' },
   { title:'Feira da Ladra', location:'Alfama, Lisbon, Portugal',
     note:'It was our first morning in Lisbon. I was eager to get up early and explore, and convinced the group to start at Feira da Ladra flea market. We were only there for a few days, and since the market only runs twice a week, it felt like good timing. It was also one of those warm, sunny January days, which made it even better. We had been walking around for a while and I was looking for something that stood out. Then I came across this stall. The old Mercedes behind it is what first caught my attention, but I ended up noticing the Swiss Army knives he was selling. I had been wanting one since I lost my last, so I was pretty happy to find one in good condition and bought it from him. I like this photo because of how much is going on, the car, the stall, and the man I bought the knife from, all in one frame.',
-    galleryTitle:'Portugal scene' },
+    file:'DSCF6942' },
   { title:'Sunset Surfer', location:'Uluwatu, Bali, Indonesia',
     note:'During our time in Bali, we knew we had to check out Uluwatu, so we called our favourite taxi driver, Wayan, to take us around for the day. He showed us a mix of places, from Garuda Wisnu Kencana Park to different beaches along the coast. It made everything easier, and honestly just a better experience having someone local show us around. By sunset, we ended up at one of the cliffside bars overlooking the ocean. We found a quieter spot, got some drinks, and stayed there for a while. The view was incredible. Down on the beach below, people were swimming, and a few surfers were trying to make the most of the waves. At one point I noticed a surfer standing on the rocks, waiting for the right moment to head out. There was something about the way he stood there that just looked cool, I remember thinking I wish it had been me. Instead, I took the photo. It ended up being one of my favourite spontaneous shots.',
-    galleryTitle:'Surfer, Madeira' },
+    file:'DSCF4073' },
   { title:'Stone Torii Gates', location:'Fushimi Inari Taisha, Kyoto, Japan',
     note:'During our last day in Kyoto, we planned a day trip to Fushimi Inari to see the famous orange torii gates. When we arrived, it was clear it was going to be busy, there were tourists everywhere. After our experience in Arashiyama, we decided to try something different and look for a quieter way up. I found a trail leading up the side of the mountain, away from the main paths, and we followed it. It turned out to be a long walk, but a really good one. We passed through smaller shrines, temples, and even more bamboo along the way. About halfway up, we came across this spot, completely empty. It felt a bit hidden, tucked into the forest, with moss growing over the stone torii gates while the sunlight still found its way through. It wasn\'t what we originally came for, but it ended up being one of my favourite photos, and one that has a story behind it.',
-    galleryTitle:'Inari spirits' },
+    file:'DSCF3678' },
   { title:'Bamboo Grove', location:'Adashino Nenbutsuji Temple, Kyoto, Japan',
     note:'During our time in Kyoto, we knew we had to see the bamboo groves in Arashiyama. We decided to rent bikes to explore the area, partly to get around more easily, but also to escape the heat. After cycling in Kawaguchiko, we already knew it was the best way to move around. We had originally planned to visit the main Arashiyama Bamboo Forest, but it looked really crowded, so we reconsidered. I found a smaller spot just up the road, and we rode there instead. The neighborhoods along the way stood out to me, everything felt so well put together and surrounded by greenery. We ended up at Adashino Nenbutsuji Temple, which had a mix of buildings, statues, and small grave sites, along with this bamboo grove. It felt calm and quiet, and there was no one else around, which made it easy to take this photo. The grove itself wasn\'t very large, but having it to ourselves made the experience feel much more special.',
-    galleryTitle:'Bamboo Forest' },
+    file:'DSCF3544' },
   { title:'Matsumoto Castle', location:'Matsumoto, Japan',
     note:'We left Fujikawaguchiko in the afternoon and headed to Matsumoto. I had really wanted to come here, mainly for the castle and nearby Kamikochi, and was glad I got the others on board since this part of the trip felt a bit different from the rest. In Matsumoto, the only thing I really cared about was seeing this castle. I\'d wanted to visit for years, I always thought it was the coolest looking of the original twelve in Japan. We dropped our bags at the hotel and even though it was getting late, I wanted to go straight there. I was definitely the most excited out of all of us. As we entered the park, I caught a glimpse of it and was already impressed. Then we walked a bit further in, and this was the view. I was honestly surprised by how well it was kept, and with the red bridge in front, it just looked incredible. This is still my favourite photo I\'ve taken, partly because of how it looks, but also because I had been looking forward to this moment for so long.',
-    galleryTitle:'Matsumoto Castle' },
+    file:'DSCF2939' },
   { title:'Biking around Fuji', location:'Fujikawaguchiko, Japan',
     note:'After many long days in Tokyo, we headed to Fujikawaguchiko. The air felt cooler and lighter, a nice break from the heat and humidity of the city. We stayed in a small hostel with traditional tatami rooms and roll-out beds, and from the balcony we had a clear view of Mount Fuji. Later that day we borrowed bikes and went out to explore. Riding around in that kind of weather, with no crowds and nowhere specific to be, everything just felt calm. We cycled through town and along Lake Kawaguchi, and stopped by the water to eat some snacks and watch the sun go down. On the way back, just after sunset, we took the shortcut across Kawaguchiko Ohashi bridge, where I stopped to take this photo. Seeing Fuji this clearly without clouds is rare, so I knew I had to capture it. That ride, and this view as part of it, is easily my favourite moment from the trip.',
-    galleryTitle:'Kawaguchiko bridge' },
+    file:'DSCF2500' },
   { title:'Chinatown', location:'Yokohama, Japan',
     note:'It was later in the day, and we had finished exploring Kamakura, and decided to stop by Yokohama\'s Chinatown before heading back to Tokyo. After 1859, it became a hub for Chinese merchants trading silk and tea, and because of strict regulations they were confined to a small area, which is how Chinatown ended up forming there. As soon as we walked in I was struck by it: bright yellow lights and signs everywhere, a bit chaotic but still somehow cozy. It felt really different from Tokyo despite being so close, like stepping into a completely different place for a while. I liked how you could experience a different culture so clearly without even leaving Japan. This photo takes me straight back to that night.',
-    galleryTitle:'Yokohama Chinatown' },
+    file:'DSCF2375' },
   { title:'Shrine Visitors', location:'Tsurugaoka Hachimangu, Kamakura, Japan',
     note:'This was our first day out of Tokyo, a day trip to Kamakura. We walked the path from San-no Torii towards the main temple, and there was a lot to take in along the way. At some point I noticed a family in kimonos, different colours, gathered around some props on the path. I tried to be subtle about getting the shot, but the mother spotted me and looked up with a big smile, like she was happy to have her photo taken. I captured it and nodded back. The scene made it a good photo, her smile made it special.',
-    galleryTitle:'Shrine visitors' },
+    file:'DSCF2147' },
   { title:'Conveyor Belt Sushi', location:'Asakusa, Tokyo, Japan',
     note:'About a week into the trip to Tokyo we had a free day and ended up wandering around Asakusa near Senso&#8209;ji without much of a plan. We came across a conveyor belt sushi place and went in on impulse, sat down and started picking plates. The fish was incredible, easily the best I\'d had, with combinations I hadn\'t tried before. The man behind the counter was older and clearly knew what he was doing, and it showed in the food. I didn\'t eat much in terms of quantity, but it didn\'t really matter. A few pieces felt like enough, almost like the quality itself was what filled me up.',
-    galleryTitle:'Sushi conveyor belt' },
+    file:'DSCF2074' },
   { title:'Shinjuku Chef', location:'Omoide Yokocho, Shinjuku, Tokyo, Japan',
     note:'This was the first full day of a trip I had been planning for years. We came out of the subway in Shinjuku and I remember being genuinely overwhelmed. It was just a lot to take in at once, buildings everywhere, crowds moving in every direction, light and noise all around. A few streets in, we found Omoide Yokocho, a narrow alley packed with tiny restaurants and bars. We wandered through it for a while, it felt completely different from the wide, open streets just outside. As we were leaving, I noticed a chef on a smoke break, leaning against the wall next to a vending machine. That moment stood out to me. One of my favourites from the trip.',
-    galleryTitle:'Vending machine man' },
+    file:'DSCF0666' },
 ];
 
 let favouritesBuilt = false;
@@ -1463,9 +1466,9 @@ function buildFavouritesPage() {
   favouritesBuilt = true;
   const list = document.getElementById('fav-list');
   FAVOURITES.forEach((fav, i) => {
-    const galleryItem = GALLERY.find(g => g.title === fav.galleryTitle);
+    const galleryItem = GALLERY.find(g => g.src && g.src.includes(fav.file));
     const src = galleryItem ? galleryItem.src : ('https://picsum.photos/seed/fav' + i + '/900/600');
-    const galleryIdx = GALLERY.findIndex(g => g.title === fav.galleryTitle);
+    const galleryIdx = GALLERY.findIndex(g => g.src && g.src.includes(fav.file));
     const item = document.createElement('div');
     item.className = 'fav-item' + (i % 2 === 1 ? ' reverse' : '');
 
