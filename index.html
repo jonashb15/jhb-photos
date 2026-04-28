@@ -1498,7 +1498,7 @@ function buildFavouritesPage() {
       imgDiv.style.cursor = 'pointer';
       imgDiv.addEventListener('click', () => {
         // Build a source array from just the favourites photos in order
-        const favSrcs = FAVOURITES.map(f => GALLERY.find(g => g.title === f.galleryTitle)).filter(Boolean);
+        const favSrcs = FAVOURITES.map(f => GALLERY.find(g => g.src && g.src.includes(f.file))).filter(Boolean);
         const favIdx = favSrcs.indexOf(GALLERY[galleryIdx]);
         lbSource = favSrcs;
         lbIdx = favIdx >= 0 ? favIdx : 0;
